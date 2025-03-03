@@ -38,7 +38,6 @@
         app:cardElevation="@dimen/data_default_elevation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/program_IMG_poster"
         app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
