@@ -14,6 +14,17 @@
         android:layout_margin="@dimen/data_margin"
         tools:listitem="@layout/program_item" />
 
+    <!-- Floating Action Button (FAB) on the top left -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_search"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/search_foreground"
+        />
+
     <!-- Bottom bar fragment container pinned to the bottom -->
     <FrameLayout
         android:id="@+id/fragment_bottom_bar_container"

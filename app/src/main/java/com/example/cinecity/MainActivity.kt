@@ -27,5 +27,10 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_bottom_bar_container, BottomBarFragment())
             .commit()
+
+        // Floating Action Button Click Listener
+        binding.fabSearch.setOnClickListener {
+            // TODO: Implement search functionality here
+        }
     }
 }
