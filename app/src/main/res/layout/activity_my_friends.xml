@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_my_friends"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.cinecity.MyFriendsActivity">
+
+    <!-- Logo in the top right corner -->
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/cine_city_icon"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"/>
+
+    <!-- Grid Layout for Friends Profile Pictures -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myFriends_RV_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/appLogo"
+        android:layout_centerInParent="true"
+        android:numColumns="2"
+        android:gravity="center"
+        tools:listitem="@layout/profile_item" />
+
+    <!-- Search Bar at the Bottom -->
+    <LinearLayout
+        android:id="@+id/search_bar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="@android:color/white">
+
+        <EditText
+            android:id="@+id/search_friends"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Search for friend"
+            android:padding="8dp"/>
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/search_foreground"
+            android:padding="8dp"/>
+    </LinearLayout>
+</RelativeLayout>

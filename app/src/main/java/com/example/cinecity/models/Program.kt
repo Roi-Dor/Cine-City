@@ -11,7 +11,6 @@ data class Program private constructor(
     val overview: String,
     val releaseDate: LocalDate,
     val rating: Float,
-    var isFavorite: Boolean,
     var isCollapsed: Boolean = true
 ) {
     fun toggleCollapse() = apply { this.isCollapsed = !this.isCollapsed }
@@ -25,7 +24,6 @@ data class Program private constructor(
         var overview: String = "",
         var releaseDate: LocalDate = LocalDate.now(),
         var rating: Float = 0.0F,
-        var isFavorite: Boolean = false
     ) {
         fun poster(poster: String) = apply { this.poster = poster }
         fun genre(genre: List<String>) = apply { this.genre = genre }
@@ -35,7 +33,6 @@ data class Program private constructor(
         fun overview(overview: String) = apply { this.overview = overview }
         fun releaseDate(releaseDate: LocalDate) = apply { this.releaseDate = releaseDate }
         fun rating(rating: Float) = apply { this.rating = rating }
-        fun isFavorite(isFavorite: Boolean) = apply { this.isFavorite = isFavorite }
         fun build() = Program(
             poster,
             genre,
@@ -45,7 +42,6 @@ data class Program private constructor(
             overview,
             releaseDate,
             rating,
-            isFavorite
         )
     }
 }

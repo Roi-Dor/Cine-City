@@ -4,13 +4,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:layout_gravity="center"
+    >
 
     <!-- Circular Profile Picture -->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/profileImage"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="164dp"
+        android:layout_height="164dp"
         android:src="@drawable/circle_background"
         android:scaleType="centerCrop"
         android:background="@drawable/circle_background"
@@ -30,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="Username"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         />
 
