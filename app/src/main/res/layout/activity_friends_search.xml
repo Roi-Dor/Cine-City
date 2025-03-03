@@ -9,14 +9,14 @@ android:orientation="vertical"
 android:padding="16dp">
 
 <!-- Logo -->
-<ImageView
-    android:id="@+id/appLogo"
-    android:layout_width="50dp"
-    android:layout_height="50dp"
-    android:src="@drawable/cine_city_icon"
-    android:layout_gravity="end"
-    android:clickable="true"
-    android:focusable="true" />
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="end"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/cine_city_icon" />
 
 <!-- Search Bar -->
 <LinearLayout

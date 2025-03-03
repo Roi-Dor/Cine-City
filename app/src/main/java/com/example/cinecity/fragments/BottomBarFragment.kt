@@ -1,12 +1,15 @@
 package com.example.cinecity.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.example.cinecity.FriendsSearch
 import com.example.cinecity.R
+import com.example.cinecity.UserProfileActivity
 
 class BottomBarFragment : Fragment() {
 
@@ -35,7 +38,9 @@ class BottomBarFragment : Fragment() {
         }
 
         imgProfile.setOnClickListener {
-            // TODO: Navigate to user profile or open a profile fragment
+            // Use requireContext() to get a valid context for the intent.
+            val intent = Intent(requireContext(), UserProfileActivity::class.java)
+            startActivity(intent)
         }
     }
 }

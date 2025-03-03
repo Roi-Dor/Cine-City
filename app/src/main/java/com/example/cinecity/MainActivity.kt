@@ -30,10 +30,16 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragment_bottom_bar_container, BottomBarFragment())
             .commit()
 
+        // Add BottomBarFragment to the container
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_bottom_bar_container, BottomBarFragment())
+            .commit()
+
         // Floating Action Button Click Listener
         binding.fabSearch.setOnClickListener {
             val intent = Intent(this, FriendsSearch::class.java)
             startActivity(intent)
         }
+
     }
 }
