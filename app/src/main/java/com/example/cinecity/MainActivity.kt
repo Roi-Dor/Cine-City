@@ -1,6 +1,8 @@
 package com.example.cinecity
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinecity.adapters.ProgramAdapter
@@ -30,7 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         // Floating Action Button Click Listener
         binding.fabSearch.setOnClickListener {
-            // TODO: Implement search functionality here
+            val intent = Intent(this, FriendsSearch::class.java)
+            startActivity(intent)
         }
     }
 }
