@@ -41,5 +41,7 @@ class MyFriendsActivity : AppCompatActivity() {
             startActivity(intent)
             finish() // Optional: Close FriendsSearch activity
         }
+
+
     }
 }
