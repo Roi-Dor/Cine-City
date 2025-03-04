@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "546695541654",
+    "project_id": "cine-city-79394",
+    "storage_bucket": "cine-city-79394.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546695541654:android:4d97b484ce8988b7f8e3b7",
+        "android_client_info": {
+          "package_name": "com.example.cinecity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbor5bMegJuEVMn34Kug6DOsD6db-lJi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
