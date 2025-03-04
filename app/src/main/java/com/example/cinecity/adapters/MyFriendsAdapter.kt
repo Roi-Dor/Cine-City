@@ -31,7 +31,7 @@ class MyFriendsAdapter(private val friendsList: List<Friend>) :
 
         fun bind(friend: Friend) {
             binding.username.text = friend.userName
-            // If you have an ImageLoader or similar, load the profilePicUrl
+            // Load the profile picture using your ImageLoader:
             ImageLoader.getInstance().loadImage(friend.profilePicUrl, binding.profileImage)
         }
     }

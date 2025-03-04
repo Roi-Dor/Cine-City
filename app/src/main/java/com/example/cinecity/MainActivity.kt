@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Initialize your image loader
-        ImageLoader.init(this)
+        ImageLoader.init(applicationContext)
 
         // Initialize and set the adapter
         programAdapter = ProgramAdapter(DataManager.generateProgramList())

@@ -8,6 +8,7 @@ import com.example.cinecity.adapters.MyFriendsAdapter
 import com.example.cinecity.databinding.ActivityMyFriendsBinding
 import com.example.cinecity.fragments.BottomBarFragment
 import com.example.cinecity.models.Friend
+import com.example.cinecity.utilities.ImageLoader
 
 class MyFriendsActivity : AppCompatActivity() {
 
@@ -18,12 +19,15 @@ class MyFriendsActivity : AppCompatActivity() {
         binding = ActivityMyFriendsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        ImageLoader.init(applicationContext)
+
         // Sample data: you would normally fetch this from a database or server
         val friendsList = listOf(
-            Friend("https://www.imdb.com/name/nm1676221/mediaviewer/rm1350209538/?ref_=ext_shr_lnk4", "Andy"),
-            Friend("https://www.imdb.com/name/nm2024927/mediaviewer/rm219170561/?ref_=ext_shr_lnk", "Alen"),
-            Friend("https://www.imdb.com/name/nm1275259/mediaviewer/rm2713069056/?ref_=ext_shr_lnk", "Alexandra"),
-            // Add as many as needed...
+            Friend("https://image.tmdb.org/t/p/original/jMXU5oG3i93SH1yhkpbBGskFiJl.jpg", "Andy"),
+            Friend("https://image.tmdb.org/t/p/original/wdmLUSPEC7dXuqnjTM4NgbjvTKk.jpg", "Alen"),
+            Friend("https://image.tmdb.org/t/p/original/9f9nBQDrhpgh5jDuvCeZm1uUSZp.jpg", "Alexandra"),
+            Friend("https://image.tmdb.org/t/p/original/g55dgcZQkLMolkKqgP7OD2yfGXu.jpg", "Gal"),
+            Friend("https://image.tmdb.org/t/p/original/mf0OANvWYSzU1d8yggrhyw8IbIz.jpg", "Emma")
         )
 
         // Set up RecyclerView with MyFriendsAdapter

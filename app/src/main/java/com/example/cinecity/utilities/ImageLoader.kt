@@ -28,7 +28,7 @@ class ImageLoader private constructor(context: Context) {
 
         fun init(context: Context): ImageLoader {
             return instance ?: synchronized(this) {
-                instance ?: ImageLoader(context).also { instance = it }
+                instance ?: ImageLoader(context.applicationContext).also { instance = it }
             }
         }
 
