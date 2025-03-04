@@ -31,10 +31,6 @@ class MyFriendsActivity : AppCompatActivity() {
         binding.myFriendsRVList.adapter = myFriendsAdapter
         binding.myFriendsRVList.layoutManager = LinearLayoutManager(this)
 
-        // Optional: set up bottom bar (if you want the same bottom navigation)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_bottom_bar_container, BottomBarFragment())
-            .commit()
 
         binding.appLogo.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

@@ -13,7 +13,7 @@ import com.example.cinecity.utilities.TimeFormatter
 import java.time.format.DateTimeFormatter
 import kotlin.math.max
 
-class ProgramAdapter(private val programs: List<Program>) :
+class ProgramAdapter(private var programs: List<Program>) :
     RecyclerView.Adapter<ProgramAdapter.ProgramViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgramViewHolder {
@@ -84,6 +84,11 @@ class ProgramAdapter(private val programs: List<Program>) :
                 }
             }
         }
+    }
+    // This function updates the list of programs and notifies the adapter.
+    fun updatePrograms(newPrograms: List<Program>) {
+        programs = newPrograms
+        notifyDataSetChanged()
     }
 
     inner class ProgramViewHolder(val binding: ProgramItemBinding) :

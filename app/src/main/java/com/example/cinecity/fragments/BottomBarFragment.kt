@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.cinecity.FriendsSearch
+import com.example.cinecity.MyFriendsActivity
 import com.example.cinecity.R
 import com.example.cinecity.UserProfileActivity
 
@@ -30,7 +31,8 @@ class BottomBarFragment : Fragment() {
         val imgProfile = view.findViewById<ImageView>(R.id.bottom_bar_IMG_profile)
 
         imgFriends.setOnClickListener {
-            // TODO: Show friends list or open a friends activity/fragment
+            val intent = Intent(requireContext(), MyFriendsActivity::class.java)
+            startActivity(intent)
         }
 
         imgAdd.setOnClickListener {
