@@ -9,6 +9,7 @@ import com.example.cinecity.databinding.ActivityMainBinding
 import com.example.cinecity.fragments.BottomBarFragment
 import com.example.cinecity.models.DataManager
 import com.example.cinecity.utilities.ImageLoader
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         // Initialize your image loader
         ImageLoader.init(applicationContext)
