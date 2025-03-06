@@ -1,1 +1,56 @@
 /build
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# Logs and caches
+logs/
+*.log
+.cache/
+
+# Build output
+dist/
+build/
+*.out
+
+# Editor directories and files
+.vscode/
+.idea/
+*.iml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.swp
+
+# Coverage reports
+coverage/
+
+# Database files
+*.sqlite
+*.db
+
+# Ignoring compiled files
+*.class
+*.pyc
+*.pyo
+
+# Ignoring media cache
+media/
+
+# Ignore uploads (if any)
+/uploads/
+
+# Ignore generated static files
+staticfiles/
+
+# Ignoring project-specific files
+config/local_settings.py
+secrets.json
