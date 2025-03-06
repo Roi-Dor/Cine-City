@@ -47,6 +47,17 @@
             android:layout_marginStart="@dimen/data_start_margin"
             android:layout_marginEnd="@dimen/data_margin">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/movie_IMG_add"
+                android:layout_width="@dimen/heart_dimension"
+                android:layout_height="@dimen/heart_dimension"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/data_margin"
+                android:layout_marginEnd="@dimen/data_margin"
+                android:scaleType="fitCenter"
+                app:srcCompat="@mipmap/upload_foreground" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/program_LBL_title"
                 android:layout_width="wrap_content"

@@ -1,10 +1,12 @@
 package com.example.cinecity.adapters
 
 import android.animation.ObjectAnimator
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cinecity.R
+import com.example.cinecity.PostProgramActivity
 import com.example.cinecity.databinding.ProgramItemBinding
 import com.example.cinecity.models.Program
 import com.example.cinecity.utilities.Constants
@@ -36,6 +38,24 @@ class ProgramAdapter(private var programs: List<Program>) :
                 binding.programLBLOverview.text = overview
                 binding.programRBRating.rating = rating / 2
                 ImageLoader.getInstance().loadImage(poster, binding.programIMGPoster)
+
+
+                binding.movieIMGAdd.setOnClickListener {
+                    val context = holder.itemView.context
+                    val bundle = Bundle().apply {
+                        putString("poster", poster)
+                        putString("name", name)
+                        putInt("length", length)
+                        putString("overview", overview)
+                        putString("releaseDate", releaseDate.toString())
+                    }
+
+                    val intent = Intent(context, PostProgramActivity::class.java).apply {
+                        putExtras(bundle)
+                    }
+                    context.startActivity(intent)
+                }
+
 
                 // Expand/Collapse just for "overview" now
                 binding.programCVData.setOnClickListener {
