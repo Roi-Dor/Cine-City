@@ -9,7 +9,6 @@ import com.example.cinecity.databinding.ActivityMainBinding
 import com.example.cinecity.fragments.BottomBarFragment
 import com.example.cinecity.models.DataManager
 import com.example.cinecity.utilities.ImageLoader
-import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 

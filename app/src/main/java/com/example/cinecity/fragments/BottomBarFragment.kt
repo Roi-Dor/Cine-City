@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.example.cinecity.FriendsSearch
 import com.example.cinecity.MyFriendsActivity
 import com.example.cinecity.R
+import com.example.cinecity.SearchProgramsActivity
 import com.example.cinecity.UserProfileActivity
 
 class BottomBarFragment : Fragment() {
@@ -36,7 +37,8 @@ class BottomBarFragment : Fragment() {
         }
 
         imgAdd.setOnClickListener {
-            // TODO: Add a new item, open camera, open a new activity, etc.
+            val intent = Intent(requireContext(), SearchProgramsActivity::class.java)
+            startActivity(intent)
         }
 
         imgProfile.setOnClickListener {

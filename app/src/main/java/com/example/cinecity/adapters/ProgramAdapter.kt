@@ -28,64 +28,53 @@ class ProgramAdapter(private var programs: List<Program>) :
     override fun onBindViewHolder(holder: ProgramViewHolder, position: Int) {
         with(holder) {
             with(getItem(position)) {
+                // Basic info
                 binding.programLBLTitle.text = name
                 binding.programLBLReleaseDate.text =
                     releaseDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))
                 binding.programLBLDuration.text = TimeFormatter.formatTime(length)
-                binding.programLBLGenres.text = genre.joinToString(", ")
-                binding.programLBLActors.text = actors.joinToString(", ")
                 binding.programLBLOverview.text = overview
                 binding.programRBRating.rating = rating / 2
                 ImageLoader.getInstance().loadImage(poster, binding.programIMGPoster)
 
+                // Expand/Collapse just for "overview" now
                 binding.programCVData.setOnClickListener {
                     val animatorSet = ArrayList<ObjectAnimator>()
+
                     if (isCollapsed) {
-                        animatorSet.add(
-                            ObjectAnimator.ofInt(
-                                binding.programLBLActors,
-                                "maxLines",
-                                binding.programLBLActors.lineCount
-                            ).setDuration(
-                                (max((binding.programLBLActors.lineCount - Constants.Data.ACTORS_MIN_LINES).toDouble(), 0.0) * 50L).toLong()
-                            )
-                        )
+                        // Expand the overview
                         animatorSet.add(
                             ObjectAnimator.ofInt(
                                 binding.programLBLOverview,
                                 "maxLines",
                                 binding.programLBLOverview.lineCount
                             ).setDuration(
-                                (max((binding.programLBLOverview.lineCount - Constants.Data.OVERVIEW_MIN_LINES).toDouble(), 0.0) * 50L).toLong()
+                                (max((binding.programLBLOverview.lineCount -
+                                        Constants.Data.OVERVIEW_MIN_LINES).toDouble(), 0.0) * 50L).toLong()
                             )
                         )
                     } else {
-                        animatorSet.add(
-                            ObjectAnimator.ofInt(
-                                binding.programLBLActors,
-                                "maxLines",
-                                Constants.Data.ACTORS_MIN_LINES
-                            ).setDuration(
-                                (max((binding.programLBLActors.lineCount - Constants.Data.ACTORS_MIN_LINES).toDouble(), 0.0) * 50L).toLong()
-                            )
-                        )
+                        // Collapse the overview
                         animatorSet.add(
                             ObjectAnimator.ofInt(
                                 binding.programLBLOverview,
                                 "maxLines",
                                 Constants.Data.OVERVIEW_MIN_LINES
                             ).setDuration(
-                                (max((binding.programLBLOverview.lineCount - Constants.Data.OVERVIEW_MIN_LINES).toDouble(), 0.0) * 50L).toLong()
+                                (max((binding.programLBLOverview.lineCount -
+                                        Constants.Data.OVERVIEW_MIN_LINES).toDouble(), 0.0) * 50L).toLong()
                             )
                         )
                     }
+
                     toggleCollapse()
                     animatorSet.forEach { it.start() }
                 }
             }
         }
     }
-    // This function updates the list of programs and notifies the adapter.
+
+    // Updates the list of programs and refreshes the adapter
     fun updatePrograms(newPrograms: List<Program>) {
         programs = newPrograms
         notifyDataSetChanged()

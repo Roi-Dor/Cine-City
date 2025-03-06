@@ -16,8 +16,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
 
@@ -55,7 +55,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     //Glide
-    implementation("com.github.bumptech.glide:glide:4.14.2")
+    implementation(libs.glide)
     kapt("com.github.bumptech.glide:compiler:4.14.2")
 
     //Firebase
@@ -64,4 +64,11 @@ dependencies {
 
     //FireBase authUI
     implementation (libs.firebase.ui.auth)
+
+    //TMDB api
+    // OkHttp
+    implementation(libs.okhttp)
+    // For JSON parsing (optional, if you want to parse into data classes)
+    implementation(libs.gson)
+
 }
