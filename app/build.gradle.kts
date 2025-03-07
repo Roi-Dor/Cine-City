@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.storage.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -68,6 +69,9 @@ dependencies {
 
     //Realtime DB
     implementation(libs.firebase.database)
+
+    //Storage
+    implementation(libs.firebase.storage)
 
     //TMDB api
     // OkHttp

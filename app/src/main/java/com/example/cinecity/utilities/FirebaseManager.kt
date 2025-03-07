@@ -1,13 +1,19 @@
 package com.example.cinecity.utilities
 
+import android.net.Uri
+import android.util.Log
 import com.example.cinecity.models.Program
 import com.example.cinecity.models.User
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class FirebaseManager private constructor() {
 
     // Reference to the Realtime Database, pointing to the "users" node
     private val dbRef = FirebaseDatabase.getInstance().getReference("users")
+    private val storageRef: StorageReference =
+        FirebaseStorage.getInstance().reference.child("profile_pictures")
 
     companion object {
         @Volatile
@@ -44,9 +50,7 @@ class FirebaseManager private constructor() {
     }
 
     fun addProgramToUser(userId: String, program: Program, callback: FirebaseCallback) {
-        val userProgramsRef = FirebaseDatabase.getInstance().getReference("users")
-            .child(userId)
-            .child("programs")
+        val userProgramsRef = dbRef.child(userId).child("programs")
 
         userProgramsRef.push().setValue(program)
             .addOnSuccessListener { callback.onSuccess() }
@@ -63,13 +67,50 @@ class FirebaseManager private constructor() {
                     val program = programSnapshot.getValue(Program::class.java)
                     if (program != null) {
                         programsList.add(program)
-                        println("Parsed program: $program")
                     }
                 }
                 callback.onSuccess(programsList)
             }
             .addOnFailureListener { e ->
                 callback.onFailure(e.message ?: "Failed to retrieve programs")
+            }
+    }
+
+    fun uploadProfilePicture(userId: String, fileUri: Uri?, callback: FirebaseCallback) {
+        if (fileUri == null) {
+            Log.e("FirebaseStorage", "File URI is null, cannot upload!")
+            callback.onFailure("File URI is null")
+            return
+        }
+
+        val userPicRef = storageRef.child("$userId.jpg")
+        Log.d("FirebaseStorage", "Uploading file to: ${userPicRef.path}")
+
+        userPicRef.putFile(fileUri)
+            .addOnSuccessListener {
+                Log.d("FirebaseStorage", "Upload successful! Fetching download URL...")
+
+                userPicRef.downloadUrl.addOnSuccessListener { downloadUri ->
+                    Log.d("FirebaseStorage", "Download URL: $downloadUri")
+
+                    dbRef.child(userId).child("profilePictureUrl")
+                        .setValue(downloadUri.toString())
+                        .addOnSuccessListener {
+                            Log.d("FirebaseStorage", "Profile picture URL saved in Realtime DB")
+                            callback.onSuccess()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("FirebaseStorage", "Failed to update DB: ${e.message}")
+                            callback.onFailure(e.message ?: "Database update failed")
+                        }
+                }.addOnFailureListener { e ->
+                    Log.e("FirebaseStorage", "Failed to retrieve download URL: ${e.message}")
+                    callback.onFailure(e.message ?: "Download URL fetch failed")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("FirebaseStorage", "Upload failed: ${e.message}")
+                callback.onFailure(e.message ?: "Upload failed")
             }
     }
 

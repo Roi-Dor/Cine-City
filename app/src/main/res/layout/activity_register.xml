@@ -78,6 +78,15 @@
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <Button
+        android:id="@+id/uploadBTNImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Profile Picture "
+        android:textAllCaps="false"
+        android:layout_marginBottom="12dp"/>
+
+
     <!-- Sign Up Button -->
     <Button
         android:id="@+id/registerBTNSubmit"
@@ -86,7 +95,6 @@
         android:text="Sign Up"
         android:textAllCaps="false"
         android:layout_marginBottom="12dp"/>
-
 
     <Button
         android:id="@+id/registerBTNBack"
