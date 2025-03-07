@@ -61,7 +61,6 @@ class PostProgramActivity : AppCompatActivity() {
             .overview(overview ?: "Unknown")
             .length(length ?: 0)
             .rating(rating)
-            .releaseDate(LocalDate.parse(releaseDate) ?: LocalDate.now())
             .build()
 
         val currentUser = FirebaseAuth.getInstance().currentUser

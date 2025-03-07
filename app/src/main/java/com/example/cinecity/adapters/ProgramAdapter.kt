@@ -12,7 +12,6 @@ import com.example.cinecity.models.Program
 import com.example.cinecity.utilities.Constants
 import com.example.cinecity.utilities.ImageLoader
 import com.example.cinecity.utilities.TimeFormatter
-import java.time.format.DateTimeFormatter
 import kotlin.math.max
 
 class ProgramAdapter(private var programs: List<Program>) :
@@ -32,8 +31,6 @@ class ProgramAdapter(private var programs: List<Program>) :
             with(getItem(position)) {
                 // Basic info
                 binding.programLBLTitle.text = name
-                binding.programLBLReleaseDate.text =
-                    releaseDate.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy"))
                 binding.programLBLDuration.text = TimeFormatter.formatTime(length)
                 binding.programLBLOverview.text = overview
                 binding.programRBRating.rating = rating / 2
@@ -47,7 +44,6 @@ class ProgramAdapter(private var programs: List<Program>) :
                         putString("name", name)
                         putInt("length", length)
                         putString("overview", overview)
-                        putString("releaseDate", releaseDate.toString())
                     }
 
                     val intent = Intent(context, PostProgramActivity::class.java).apply {

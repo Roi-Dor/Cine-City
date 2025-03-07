@@ -13,7 +13,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDate
 
 class SearchProgramsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchProgramsBinding
@@ -59,18 +58,13 @@ class SearchProgramsActivity : AppCompatActivity() {
                     val overview = tmdbMovie.overview.orEmpty()
                     val voteAverage = tmdbMovie.vote_average ?: 0.0
 
-                    val releaseDate = try {
-                        LocalDate.parse(tmdbMovie.release_date)
-                    } catch (e: Exception) {
-                        LocalDate.now()
-                    }
+
 
                     Program.Builder()
                         .poster("https://image.tmdb.org/t/p/w500$posterUrl")
                         .name(title)
                         .length(0)
                         .overview(overview)
-                        .releaseDate(releaseDate)
                         .rating(voteAverage.toFloat())
                         .build()
                 }

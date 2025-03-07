@@ -53,6 +53,31 @@ class FirebaseManager private constructor() {
             .addOnFailureListener { e -> callback.onFailure(e.message ?: "Failed to add program") }
     }
 
+    fun getUserPrograms(userId: String, callback: ProgramsCallback) {
+        val userProgramsRef = dbRef.child(userId).child("programs")
+
+        userProgramsRef.get()
+            .addOnSuccessListener { dataSnapshot ->
+                val programsList = mutableListOf<Program>()
+                for (programSnapshot in dataSnapshot.children) {
+                    val program = programSnapshot.getValue(Program::class.java)
+                    if (program != null) {
+                        programsList.add(program)
+                        println("Parsed program: $program")
+                    }
+                }
+                callback.onSuccess(programsList)
+            }
+            .addOnFailureListener { e ->
+                callback.onFailure(e.message ?: "Failed to retrieve programs")
+            }
+    }
+
+    // Callback interface for fetching programs
+    interface ProgramsCallback {
+        fun onSuccess(programs: List<Program>)
+        fun onFailure(errorMessage: String)
+    }
 
     interface FirebaseCallback {
         fun onSuccess()
