@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,6 +65,9 @@ dependencies {
 
     //FireBase authUI
     implementation (libs.firebase.ui.auth)
+
+    //Realtime DB
+    implementation(libs.firebase.database)
 
     //TMDB api
     // OkHttp

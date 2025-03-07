@@ -7,67 +7,63 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
-import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.google.firebase.auth.FirebaseAuth
+import com.example.cinecity.databinding.ActivityLoginBinding
+import com.example.cinecity.utilities.AuthManager
+import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityLoginBinding
+    private lateinit var authManager: AuthManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            login()
-        }else{
-            transactToNextScrean()
+
+        authManager = AuthManager.getInstance(this)
+        initViews()
+    }
+
+    private fun initViews() {
+        binding.loginBTNSubmit.setOnClickListener { loginUser() }
+        binding.registerBTNBack.setOnClickListener { finish() }
+    }
+
+    private fun loginUser() {
+        val email = binding.loginETEmail.editText?.text?.toString()?.trim()
+        val password = binding.loginETPassword.editText?.text?.toString()?.trim()
+
+        if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
+            showToast("Please enter both email and password")
+            return
         }
 
+        authManager.loginUser(email, password, object : AuthManager.AuthCallback {
+            override fun onSuccess(currentUser: FirebaseUser?) {
+                showToast("Login successful")
+                navigateToMain()
+            }
+
+            override fun onFailure(errorMessage: String) {
+                showToast("Login failed: $errorMessage")
+            }
+        })
     }
 
-    // See: https://developer.android.com/training/basics/intents/result
-    private val signInLauncher = registerForActivityResult(
-        FirebaseAuthUIActivityResultContract(),
-    ) { res ->
-        this.onSignInResult(res)
-    }
-    private fun login() {// Choose authentication providers
-        val providers = arrayListOf(
-            AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.PhoneBuilder().build(),
-        )
-
-        // Create and launch sign-in intent
-        val signInIntent = AuthUI.getInstance()
-            .createSignInIntentBuilder()
-            .setAvailableProviders(providers)
-            .setLogo(R.drawable.cine_city_icon)
-            .build()
-        signInLauncher.launch(signInIntent)
-    }
-
-    private fun transactToNextScrean(){
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+    private fun navigateToMain() {
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
-    private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
-        val response = result.idpResponse
-        if (result.resultCode == RESULT_OK) {
-            // Successfully signed in
-            val user = FirebaseAuth.getInstance().currentUser
-            transactToNextScrean()
-            // ...
-        } else {
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
-        }
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

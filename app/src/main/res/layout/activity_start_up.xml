@@ -1,0 +1,44 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    tools:context=".StartupActivity">
+
+    <!-- App Logo -->
+    <ImageView
+        android:id="@+id/startupIVLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/cine_city_icon"
+        android:layout_marginBottom="32dp"
+        />
+
+    <!-- Sign Up Button -->
+    <Button
+        android:id="@+id/startupBTNSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textAllCaps="false"
+        android:layout_marginBottom="16dp"
+        android:drawablePadding="8dp"
+        android:padding="12dp"
+        android:backgroundTint="@color/teal_200"/>
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/startupBTNLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:drawablePadding="8dp"
+        android:padding="12dp"
+        android:backgroundTint="@color/teal_700"/>
+
+</LinearLayout>
