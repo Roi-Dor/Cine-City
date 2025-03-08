@@ -13,8 +13,7 @@
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/white"
-        android:src="@drawable/search_foreground"
+        android:src="@drawable/add_user"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

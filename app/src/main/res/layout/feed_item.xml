@@ -18,13 +18,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/program_IMG_poster"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_launcher_background" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/program_LBL_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/data_margin"
+            android:layout_marginTop="@dimen/data_margin"
+            android:maxLines="2"
+            android:minLines="2"
+            android:textSize="@dimen/movie_title_size"
+            android:textStyle="bold"
+            tools:text="Program Title"
+            android:textColor="@color/white"/>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/program_CV_data"
@@ -49,7 +74,7 @@
 
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/program_LBL_title"
+                android:id="@+id/program_LBL_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -60,7 +85,7 @@
                 android:minLines="2"
                 android:textSize="@dimen/movie_title_size"
                 android:textStyle="bold"
-                tools:text="Program Title" />
+                tools:text="User Name" />
 
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -72,7 +97,7 @@
                 android:background="@drawable/circle_background"
                 android:contentDescription="Profile Picture"
                 app:layout_constraintTop_toTopOf="@id/program_RB_rating"
-                android:layout_below="@id/program_LBL_title"
+                android:layout_below="@id/program_LBL_user_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 

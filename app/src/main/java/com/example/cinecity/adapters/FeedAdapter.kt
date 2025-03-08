@@ -38,8 +38,9 @@ class FeedAdapter(private var feedItems: List<FeedItem> = emptyList()) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: FeedItem) {
+            binding.programLBLUserName.text = item.friendName
             // Display the program's title
-            binding.programLBLTitle.text = item.programTitle
+            //binding.programLBLTitle.text = item.programTitle
             // Set the rating given by the friend
             binding.programRBRating.rating = item.programRating
             // Load the program poster image

@@ -34,8 +34,7 @@ class MyFriendsActivity : AppCompatActivity() {
             startActivity(intent)
             finish() // Optional: Close FriendsSearch activity
         }
-
-// Get current user ID from your authentication manager.
+        // Get current user ID from your authentication manager.
         val currentUserId = AuthManager.getInstance(this).getCurrentUserUid()
         if (currentUserId == null) {
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show()
