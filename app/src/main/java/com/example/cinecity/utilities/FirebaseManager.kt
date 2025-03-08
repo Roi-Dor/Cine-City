@@ -8,23 +8,24 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
+
 class FirebaseManager private constructor() {
 
-    // Reference to the Realtime Database, pointing to the "users" node
     private val dbRef = FirebaseDatabase.getInstance().getReference("users")
-    private val storageRef: StorageReference =
-        FirebaseStorage.getInstance().reference.child("profile_pictures")
+    private val storageRef: StorageReference = FirebaseStorage.getInstance().reference.child("profile_pictures")
 
     companion object {
         @Volatile
         private var instance: FirebaseManager? = null
 
+        // Returns the singleton instance of FirebaseManager.
         fun getInstance(): FirebaseManager {
             return instance ?: synchronized(this) {
                 instance ?: FirebaseManager().also { instance = it }
             }
         }
     }
+
 
     fun saveUser(userId: String, user: User, callback: FirebaseCallback) {
         dbRef.child(userId).setValue(user)
@@ -33,6 +34,7 @@ class FirebaseManager private constructor() {
                 callback.onFailure(e.message ?: "Failed to save user")
             }
     }
+
 
     fun getUser(userId: String, callback: UserCallback) {
         dbRef.child(userId).get()
@@ -49,17 +51,19 @@ class FirebaseManager private constructor() {
             }
     }
 
+
     fun addProgramToUser(userId: String, program: Program, callback: FirebaseCallback) {
         val userProgramsRef = dbRef.child(userId).child("programs")
-
         userProgramsRef.push().setValue(program)
             .addOnSuccessListener { callback.onSuccess() }
-            .addOnFailureListener { e -> callback.onFailure(e.message ?: "Failed to add program") }
+            .addOnFailureListener { e ->
+                callback.onFailure(e.message ?: "Failed to add program")
+            }
     }
+
 
     fun getUserPrograms(userId: String, callback: ProgramsCallback) {
         val userProgramsRef = dbRef.child(userId).child("programs")
-
         userProgramsRef.get()
             .addOnSuccessListener { dataSnapshot ->
                 val programsList = mutableListOf<Program>()
@@ -76,23 +80,22 @@ class FirebaseManager private constructor() {
             }
     }
 
+
     fun uploadProfilePicture(userId: String, fileUri: Uri?, callback: FirebaseCallback) {
         if (fileUri == null) {
             Log.e("FirebaseStorage", "File URI is null, cannot upload!")
             callback.onFailure("File URI is null")
             return
         }
-
         val userPicRef = storageRef.child("$userId.jpg")
         Log.d("FirebaseStorage", "Uploading file to: ${userPicRef.path}")
 
+        // Upload the file to Firebase Storage.
         userPicRef.putFile(fileUri)
             .addOnSuccessListener {
                 Log.d("FirebaseStorage", "Upload successful! Fetching download URL...")
-
                 userPicRef.downloadUrl.addOnSuccessListener { downloadUri ->
                     Log.d("FirebaseStorage", "Download URL: $downloadUri")
-
                     dbRef.child(userId).child("profilePictureUrl")
                         .setValue(downloadUri.toString())
                         .addOnSuccessListener {
@@ -136,10 +139,9 @@ class FirebaseManager private constructor() {
             }
     }
 
+
     fun addFriend(currentUserId: String, friendId: String, callback: FirebaseCallback) {
-        // Reference to current user's "friends" node.
         val friendRef = dbRef.child(currentUserId).child("friends")
-        // Set the friendId as the key with value true.
         friendRef.child(friendId).setValue(true)
             .addOnSuccessListener { callback.onSuccess() }
             .addOnFailureListener { e ->
@@ -147,26 +149,25 @@ class FirebaseManager private constructor() {
             }
     }
 
-
-
+    // Callback interface for returning a list of users.
     interface UsersCallback {
         fun onSuccess(users: List<User>)
         fun onFailure(errorMessage: String)
     }
 
-
-
-    // Callback interface for fetching programs
+    // Callback interface for returning a list of programs.
     interface ProgramsCallback {
         fun onSuccess(programs: List<Program>)
         fun onFailure(errorMessage: String)
     }
 
+    // Callback interface for general Firebase operations.
     interface FirebaseCallback {
         fun onSuccess()
         fun onFailure(errorMessage: String)
     }
 
+    // Callback interface for fetching a single user.
     interface UserCallback {
         fun onSuccess(user: User)
         fun onFailure(errorMessage: String)

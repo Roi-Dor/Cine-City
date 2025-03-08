@@ -56,7 +56,6 @@ class FriendsSearch : AppCompatActivity() {
                     })
 
                 } else {
-                    // Optionally, clear the adapter if query is empty.
                     friendsAdapter.updateList(emptyList())
                 }
             }

@@ -53,30 +53,41 @@ class SearchProgramsActivity : AppCompatActivity() {
                     return@withContext
                 }
 
-                val programList = response.results.map { tmdbMovie ->
-                    val posterUrl = tmdbMovie.poster_path.orEmpty()
-                    val title = tmdbMovie.title.orEmpty()
-                    val overview = tmdbMovie.overview.orEmpty()
-                    val voteAverage = tmdbMovie.vote_average ?: 0.0
-                    var release_date = tmdbMovie.release_date ?: "2000-1-1"
-                    release_date = DateFormatter.convertDate(release_date)
+                val programList = response.results
+                    .map { tmdbMovie ->
+                        val posterUrl = tmdbMovie.poster_path.orEmpty()
+                        val overview = tmdbMovie.overview.orEmpty()
+                        val voteAverage = tmdbMovie.vote_average ?: 0.0
+                        val type = tmdbMovie.media_type.orEmpty()
 
+                        // Determine title and raw release date based on media type.
+                        val title: String
+                        val releaseDateRaw: String
+                        if (type == "movie") {
+                            title = tmdbMovie.title.orEmpty()
+                            releaseDateRaw = tmdbMovie.release_date ?: "2000-1-1"
+                        } else {
+                            title = tmdbMovie.original_name.orEmpty()
+                            releaseDateRaw = tmdbMovie.first_air_date ?: "2000-1-1"
+                        }
 
+                        val releaseDate = DateFormatter.convertDate(releaseDateRaw)
 
-                    Program.Builder()
-                        .poster("https://image.tmdb.org/t/p/w500$posterUrl")
-                        .name(title)
-                        .length(0)
-                        .overview(overview)
-                        .rating(voteAverage.toFloat())
-                        .releaseDate(release_date)
-                        .build()
-                }
+                        Program.Builder()
+                            .poster("https://image.tmdb.org/t/p/w500$posterUrl")
+                            .name(title)
+                            .length(0)
+                            .overview(overview)
+                            .rating(voteAverage.toFloat())
+                            .releaseDate(releaseDate)
+                            .build()
+                    }
 
                 setupRecyclerView(programList)
             }
         }
     }
+
 
     private fun setupRecyclerView(programs: List<Program>) {
         programAdapter = ProgramAdapter(programs.toMutableList())
