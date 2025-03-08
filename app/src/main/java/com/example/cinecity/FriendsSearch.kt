@@ -44,7 +44,8 @@ class FriendsSearch : AppCompatActivity() {
                             val friendsList = users.map { user ->
                                 Friend(
                                     profilePicUrl = user.profilePictureUrl ?: "",
-                                    userName = "${user.firstName} ${user.lastName}"
+                                    userName = "${user.firstName} ${user.lastName}",
+                                    uid = user.uid ?:""
                                 )
                             }
                             friendsAdapter.updateList(friendsList)

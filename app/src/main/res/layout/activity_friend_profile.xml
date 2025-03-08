@@ -7,12 +7,24 @@
     android:layout_height="match_parent">
 
     <!-- Header with Friend Username and Logo -->
+    <!-- Header with Add Icon, Friend Username and Logo -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
+        <!-- Add Icon on the left -->
+        <ImageView
+            android:id="@+id/addIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/upload"
+            android:contentDescription="Add"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Friend Username Title in the center -->
         <TextView
             android:id="@+id/friendUsernameTitle"
             android:layout_width="0dp"
@@ -23,6 +35,7 @@
             android:textStyle="bold"
             android:gravity="center" />
 
+        <!-- App Logo on the right -->
         <ImageView
             android:id="@+id/appLogo"
             android:layout_width="48dp"
@@ -31,6 +44,7 @@
             android:clickable="true"
             android:focusable="true" />
     </LinearLayout>
+
 
     <!-- RecyclerView for Friend Programs -->
     <androidx.recyclerview.widget.RecyclerView

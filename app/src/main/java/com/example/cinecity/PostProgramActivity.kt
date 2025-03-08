@@ -75,6 +75,9 @@ class PostProgramActivity : AppCompatActivity() {
             object : FirebaseManager.FirebaseCallback {
                 override fun onSuccess() {
                     Toast.makeText(this@PostProgramActivity, "Program added!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@PostProgramActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
 
                 override fun onFailure(errorMessage: String) {

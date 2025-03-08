@@ -23,11 +23,8 @@ class MyFriendsActivity : AppCompatActivity() {
 
         // Sample data: you would normally fetch this from a database or server
         val friendsList = listOf(
-            Friend("https://image.tmdb.org/t/p/original/jMXU5oG3i93SH1yhkpbBGskFiJl.jpg", "Andy"),
-            Friend("https://image.tmdb.org/t/p/original/wdmLUSPEC7dXuqnjTM4NgbjvTKk.jpg", "Alen"),
-            Friend("https://image.tmdb.org/t/p/original/9f9nBQDrhpgh5jDuvCeZm1uUSZp.jpg", "Alexandra"),
-            Friend("https://image.tmdb.org/t/p/original/g55dgcZQkLMolkKqgP7OD2yfGXu.jpg", "Gal"),
-            Friend("https://image.tmdb.org/t/p/original/mf0OANvWYSzU1d8yggrhyw8IbIz.jpg", "Emma")
+            Friend("https://image.tmdb.org/t/p/original/jMXU5oG3i93SH1yhkpbBGskFiJl.jpg", "Andy","21das")
+
         )
 
         // Set up RecyclerView with MyFriendsAdapter

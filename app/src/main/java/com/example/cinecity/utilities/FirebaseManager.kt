@@ -137,6 +137,17 @@ class FirebaseManager private constructor() {
             }
     }
 
+    fun addFriend(currentUserId: String, friendId: String, callback: FirebaseCallback) {
+        // Reference to current user's "friends" node
+        val friendRef = dbRef.child(currentUserId).child("friends")
+        // Using push() here to add friendId as a new entry;
+        // alternatively, you can structure it as a Map with friendId as key.
+        friendRef.push().setValue(friendId)
+            .addOnSuccessListener { callback.onSuccess() }
+            .addOnFailureListener { e -> callback.onFailure(e.message ?: "Failed to add friend") }
+    }
+
+
     interface UsersCallback {
         fun onSuccess(users: List<UserSearch>)
         fun onFailure(errorMessage: String)

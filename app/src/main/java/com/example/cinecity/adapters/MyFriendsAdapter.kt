@@ -45,7 +45,9 @@ class MyFriendsAdapter(private var friendsList: List<Friend>) :
                 val context = binding.root.context
                 val intent = Intent(context, FriendProfileActivity::class.java)
                 intent.putExtra("FRIEND_USERNAME", friend.userName)
+                intent.putExtra("FRIEND_ID", friend.uid)
                 context.startActivity(intent)
+
             }
         }
     }
