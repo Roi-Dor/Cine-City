@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.example.cinecity.FriendsSearch
 import com.example.cinecity.MyFriendsActivity
 import com.example.cinecity.R
 import com.example.cinecity.SearchProgramsActivity

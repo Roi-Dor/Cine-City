@@ -1,5 +1,14 @@
 package com.example.cinecity.models
 
+
+data class UserSearch(
+    val firstName: String = "",
+    val lastName: String = "",
+    val email: String = "",
+    val uid: String = "",
+    val profilePictureUrl: String? = null
+)
+
 data class User(
     val firstName: String = "",
     val lastName: String = "",

@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import com.example.cinecity.models.Program
 import com.example.cinecity.models.User
+import com.example.cinecity.models.UserSearch
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -113,6 +114,35 @@ class FirebaseManager private constructor() {
                 callback.onFailure(e.message ?: "Upload failed")
             }
     }
+
+
+    fun searchUsers(query: String, callback: UsersCallback) {
+        val searchQuery = dbRef.orderByChild("firstName")
+            .startAt(query)
+            .endAt(query + "\uf8ff")
+
+        searchQuery.get()
+            .addOnSuccessListener { snapshot ->
+                val userList = mutableListOf<UserSearch>()
+                for (childSnapshot in snapshot.children) {
+                    val user = childSnapshot.getValue(UserSearch::class.java)
+                    if (user != null) {
+                        userList.add(user)
+                    }
+                }
+                callback.onSuccess(userList)
+            }
+            .addOnFailureListener { e ->
+                callback.onFailure(e.message ?: "Search failed.")
+            }
+    }
+
+    interface UsersCallback {
+        fun onSuccess(users: List<UserSearch>)
+        fun onFailure(errorMessage: String)
+    }
+
+
 
     // Callback interface for fetching programs
     interface ProgramsCallback {

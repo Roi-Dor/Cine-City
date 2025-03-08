@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,29 +7,36 @@
     android:layout_height="match_parent"
     tools:context="com.example.cinecity.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_RV_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/data_margin"
-        tools:listitem="@layout/program_item" />
-
-    <!-- Floating Action Button (FAB) on the top left -->
+    <!-- Search Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_search"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_margin="16dp"
-        android:layout_alignParentEnd="true"
         android:backgroundTint="@color/white"
         android:src="@drawable/search_foreground"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- RecyclerView below Search Button -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_RV_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/data_margin"
+        app:layout_constraintTop_toBottomOf="@id/fab_search"
+        app:layout_constraintBottom_toTopOf="@id/fragment_bottom_bar_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/program_item" />
 
     <!-- Bottom bar fragment container pinned to the bottom -->
     <FrameLayout
         android:id="@+id/fragment_bottom_bar_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

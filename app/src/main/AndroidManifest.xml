@@ -42,8 +42,7 @@
         <activity
             android:name=".SearchProgramsActivity"
             android:exported="false" />
-        <activity
-            android:name=".FriendsSearch"
+        <activity android:name=".FriendsSearch"
             android:exported="false" />
         <activity
             android:name=".MyFriendsActivity"

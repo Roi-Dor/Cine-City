@@ -9,8 +9,14 @@ import com.example.cinecity.models.Friend
 import com.example.cinecity.databinding.ProfileItemBinding
 import com.example.cinecity.utilities.ImageLoader
 
-class MyFriendsAdapter(private val friendsList: List<Friend>) :
+class MyFriendsAdapter(private var friendsList: List<Friend>) :
     RecyclerView.Adapter<MyFriendsAdapter.MyFriendsViewHolder>() {
+
+    // New method to update the list and refresh the RecyclerView.
+    fun updateList(newList: List<Friend>) {
+        friendsList = newList
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyFriendsViewHolder {
         val binding = ProfileItemBinding.inflate(
@@ -33,10 +39,8 @@ class MyFriendsAdapter(private val friendsList: List<Friend>) :
 
         fun bind(friend: Friend) {
             binding.username.text = friend.userName
-            // Load the profile picture using your ImageLoader:
             ImageLoader.getInstance().loadImage(friend.profilePicUrl, binding.profileImage)
 
-            // Set the click listener on the profile image
             binding.profileImage.setOnClickListener {
                 val context = binding.root.context
                 val intent = Intent(context, FriendProfileActivity::class.java)
