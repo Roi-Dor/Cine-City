@@ -18,17 +18,17 @@ class StartUpActivity : AppCompatActivity() {
 
         authManager = AuthManager.getInstance(this)
 
-        // If user is already logged in, go to MainActivity
+        // If user is logged in, navigate directly to MainActivity
         if (authManager.isUserLoggedIn()) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
+            return
         }
-        // On Sign Up button click
+
         binding.startupBTNSignUp.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        // On Login button click
         binding.startupBTNLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }

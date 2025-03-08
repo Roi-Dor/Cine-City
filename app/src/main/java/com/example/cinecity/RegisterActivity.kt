@@ -37,39 +37,25 @@ class RegisterActivity : AppCompatActivity() {
         initViews()
     }
 
+    // Initialize button click events for the registration page
     private fun initViews() {
-
         binding.registerBTNSubmit.setOnClickListener { registerUser() }
         binding.registerBTNBack.setOnClickListener { finish() }
         binding.uploadBTNImage.setOnClickListener { uploadImage() }
     }
 
-    private fun uploadImage() {  // Fixed typo in function name
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(
-            Intent.createChooser(intent, "Choose Profile Picture"), REQUEST_CODE_PICK_IMAGE
-        )
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == RESULT_OK && data != null && data.data != null) {
-            fileUri = data.data
-
-            try {
-                val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, fileUri)
-            } catch (e: Exception) {
-                Log.e("Exception", "Error: ${e.localizedMessage}")
-            }
+    // Launch an intent to pick an image for the user's profile picture
+    private fun uploadImage() {
+        val intent = Intent().apply {
+            type = "image/*"
+            action = Intent.ACTION_GET_CONTENT
         }
+        startActivityForResult(Intent.createChooser(intent, "Choose Profile Picture"), REQUEST_CODE_PICK_IMAGE)
     }
 
     companion object {
-        private const val REQUEST_CODE_PICK_IMAGE = 0 // Defined the request code
+        private const val REQUEST_CODE_PICK_IMAGE = 0
     }
-
 
     private fun registerUser() {
         val firstName = binding.registerETFirstName.editText?.text.toString().trim()
@@ -77,73 +63,66 @@ class RegisterActivity : AppCompatActivity() {
         val email = binding.registerETEmail.editText?.text.toString().trim()
         val password = binding.registerETPassword.editText?.text.toString().trim()
 
+        // Validate that all fields are filled
         if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             return
         }
 
         if (fileUri == null) {
-            Log.e("FirebaseStorage", "File URI is null, cannot upload!")
-            return
+            Log.w("RegisterActivity", "No profile picture selected. Proceeding without profile image.")
+        } else {
+            Log.d("FirebaseStorage", "Uploading file from URI: $fileUri")
         }
 
-        Log.d("FirebaseStorage", "Uploading file from URI: $fileUri")
-
+        // Create a new user account using AuthManager
         authManager.createUser(email, password, object : AuthManager.AuthCallback {
             override fun onSuccess(user: FirebaseUser?) {
                 user?.uid?.let { userId ->
-                    // Create a user object without a profile picture URL for now
+                    // Build the new User object. The profilePictureUrl is null if no image is selected.
                     val newUser = User.Builder()
                         .firstName(firstName)
                         .lastName(lastName)
                         .email(email)
                         .uid(userId)
-                        .profilePictureUrl(null) // or a placeholder if you want
+                        .profilePictureUrl(null)
                         .friends(null)
                         .programs(null)
                         .build()
 
-                    // Save basic user data to the database first
                     firestoreManager.saveUser(userId, newUser, object : FirebaseManager.FirebaseCallback {
                         override fun onSuccess() {
-                            // If user saved successfully, now handle profile picture
+                            // If an image was selected, upload it; otherwise, continue directly
                             if (fileUri != null) {
-                                // We have a fileUri from user selection
                                 firestoreManager.uploadProfilePicture(userId, fileUri!!, object : FirebaseManager.FirebaseCallback {
                                     override fun onSuccess() {
-                                        // Picture uploaded & DB updated with final URL
                                         Toast.makeText(this@RegisterActivity, "Registration + Photo successful!", Toast.LENGTH_SHORT).show()
                                         navigateToMain()
                                     }
                                     override fun onFailure(errorMessage: String) {
-                                        // Couldn’t upload the picture but user record is there
                                         Toast.makeText(this@RegisterActivity, "Failed to upload photo: $errorMessage", Toast.LENGTH_SHORT).show()
                                     }
                                 })
                             } else {
-                                // No file was selected, just proceed
                                 Toast.makeText(this@RegisterActivity, "Registration successful!", Toast.LENGTH_SHORT).show()
                                 navigateToMain()
                             }
                         }
-
                         override fun onFailure(errorMessage: String) {
                             Toast.makeText(this@RegisterActivity, "Failed to save user data", Toast.LENGTH_SHORT).show()
                         }
                     })
                 }
             }
-
             override fun onFailure(errorMessage: String) {
                 Toast.makeText(this@RegisterActivity, "Registration failed: $errorMessage", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-
+    // Navigate to the MainActivity after successful registration
     private fun navigateToMain() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 }

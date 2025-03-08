@@ -13,38 +13,48 @@ import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity() {
 
+
     private lateinit var binding: ActivityLoginBinding
     private lateinit var authManager: AuthManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Enable full screen edge-to-edge mode
         enableEdgeToEdge()
+
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Adjust the layout padding to account for system bars (status/navigation)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+
         authManager = AuthManager.getInstance(this)
         initViews()
     }
+
 
     private fun initViews() {
         binding.loginBTNSubmit.setOnClickListener { loginUser() }
         binding.registerBTNBack.setOnClickListener { finish() }
     }
 
+    // Attempt to log in the user using the provided email and password
     private fun loginUser() {
         val email = binding.loginETEmail.editText?.text?.toString()?.trim()
         val password = binding.loginETPassword.editText?.text?.toString()?.trim()
+
 
         if (email.isNullOrEmpty() || password.isNullOrEmpty()) {
             showToast("Please enter both email and password")
             return
         }
+
 
         authManager.loginUser(email, password, object : AuthManager.AuthCallback {
             override fun onSuccess(currentUser: FirebaseUser?) {
@@ -58,10 +68,12 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+
     private fun navigateToMain() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
+
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
