@@ -28,29 +28,5 @@
         android:gravity="center"
         tools:listitem="@layout/profile_item" />
 
-    <!-- Search Bar at the Bottom -->
-    <LinearLayout
-        android:id="@+id/search_bar_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="@android:color/white">
 
-        <EditText
-            android:id="@+id/search_friends"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Search for friend"
-            android:padding="8dp"/>
-
-        <ImageView
-            android:id="@+id/search_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/search_foreground"
-            android:padding="8dp"/>
-    </LinearLayout>
 </RelativeLayout>

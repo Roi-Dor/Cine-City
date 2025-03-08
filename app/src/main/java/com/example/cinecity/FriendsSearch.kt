@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinecity.adapters.MyFriendsAdapter
 import com.example.cinecity.databinding.ActivityFriendsSearchBinding
 import com.example.cinecity.models.Friend
-import com.example.cinecity.models.UserSearch
+import com.example.cinecity.models.User
 import com.example.cinecity.utilities.FirebaseManager
 
 class FriendsSearch : AppCompatActivity() {
@@ -40,12 +40,12 @@ class FriendsSearch : AppCompatActivity() {
                 val query = s.toString().trim()
                 if (query.isNotEmpty()) {
                     FirebaseManager.getInstance().searchUsers(query, object : FirebaseManager.UsersCallback {
-                        override fun onSuccess(users: List<UserSearch>) {
+                        override fun onSuccess(users: List<User>) {
                             val friendsList = users.map { user ->
                                 Friend(
                                     profilePicUrl = user.profilePictureUrl ?: "",
                                     userName = "${user.firstName} ${user.lastName}",
-                                    uid = user.uid ?:""
+                                    uid = user.uid
                                 )
                             }
                             friendsAdapter.updateList(friendsList)

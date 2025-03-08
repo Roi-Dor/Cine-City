@@ -99,8 +99,8 @@ class RegisterActivity : AppCompatActivity() {
                         .email(email)
                         .uid(userId)
                         .profilePictureUrl(null) // or a placeholder if you want
-                        .friends(emptyList())
-                        .programs(emptyList())
+                        .friends(null)
+                        .programs(null)
                         .build()
 
                     // Save basic user data to the database first

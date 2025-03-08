@@ -4,7 +4,6 @@ import android.net.Uri
 import android.util.Log
 import com.example.cinecity.models.Program
 import com.example.cinecity.models.User
-import com.example.cinecity.models.UserSearch
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -123,9 +122,9 @@ class FirebaseManager private constructor() {
 
         searchQuery.get()
             .addOnSuccessListener { snapshot ->
-                val userList = mutableListOf<UserSearch>()
+                val userList = mutableListOf<User>()
                 for (childSnapshot in snapshot.children) {
-                    val user = childSnapshot.getValue(UserSearch::class.java)
+                    val user = childSnapshot.getValue(User::class.java)
                     if (user != null) {
                         userList.add(user)
                     }
@@ -138,18 +137,20 @@ class FirebaseManager private constructor() {
     }
 
     fun addFriend(currentUserId: String, friendId: String, callback: FirebaseCallback) {
-        // Reference to current user's "friends" node
+        // Reference to current user's "friends" node.
         val friendRef = dbRef.child(currentUserId).child("friends")
-        // Using push() here to add friendId as a new entry;
-        // alternatively, you can structure it as a Map with friendId as key.
-        friendRef.push().setValue(friendId)
+        // Set the friendId as the key with value true.
+        friendRef.child(friendId).setValue(true)
             .addOnSuccessListener { callback.onSuccess() }
-            .addOnFailureListener { e -> callback.onFailure(e.message ?: "Failed to add friend") }
+            .addOnFailureListener { e ->
+                callback.onFailure(e.message ?: "Failed to add friend")
+            }
     }
 
 
+
     interface UsersCallback {
-        fun onSuccess(users: List<UserSearch>)
+        fun onSuccess(users: List<User>)
         fun onFailure(errorMessage: String)
     }
 
