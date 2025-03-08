@@ -8,10 +8,8 @@ import com.example.cinecity.databinding.ActivityPostProgramBinding
 import com.example.cinecity.models.Program
 import com.example.cinecity.utilities.FirebaseManager
 import com.example.cinecity.utilities.ImageLoader
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.database
-import java.time.LocalDate
+
 
 class PostProgramActivity : AppCompatActivity() {
 
@@ -29,7 +27,7 @@ class PostProgramActivity : AppCompatActivity() {
             val programName = bundle.getString("name")
             val length = bundle.getInt("length")
             val overview = bundle.getString("overview")
-            val releaseDate = bundle.getString("releaseDate")
+            val releaseDate = bundle.getString("release date")
 
 
             // Example: load poster with your image utility
@@ -60,6 +58,7 @@ class PostProgramActivity : AppCompatActivity() {
             .name(programName ?: "Unknown")
             .overview(overview ?: "Unknown")
             .length(length ?: 0)
+            .releaseDate(releaseDate ?: "1-1-2000")
             .rating(rating)
             .build()
 

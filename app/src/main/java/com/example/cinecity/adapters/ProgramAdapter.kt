@@ -11,7 +11,6 @@ import com.example.cinecity.databinding.ProgramItemBinding
 import com.example.cinecity.models.Program
 import com.example.cinecity.utilities.Constants
 import com.example.cinecity.utilities.ImageLoader
-import com.example.cinecity.utilities.TimeFormatter
 import kotlin.math.max
 
 class ProgramAdapter(private var programs: List<Program>) :
@@ -31,10 +30,12 @@ class ProgramAdapter(private var programs: List<Program>) :
             with(getItem(position)) {
                 // Basic info
                 binding.programLBLTitle.text = name
-                binding.programLBLDuration.text = TimeFormatter.formatTime(length)
+                //api doesn't pass a duration field
+                //binding.programLBLDuration.text = TimeFormatter.formatTime(length)
                 binding.programLBLOverview.text = overview
                 binding.programRBRating.rating = rating / 2
                 ImageLoader.getInstance().loadImage(poster, binding.programIMGPoster)
+                binding.programLBLReleaseDate.text = release_date
 
 
                 binding.movieIMGAdd.setOnClickListener {
@@ -44,6 +45,7 @@ class ProgramAdapter(private var programs: List<Program>) :
                         putString("name", name)
                         putInt("length", length)
                         putString("overview", overview)
+                        putString("release date",release_date)
                     }
 
                     val intent = Intent(context, PostProgramActivity::class.java).apply {

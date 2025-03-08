@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.example.cinecity.utilities.DateFormatter
 
 class SearchProgramsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchProgramsBinding
@@ -57,6 +58,8 @@ class SearchProgramsActivity : AppCompatActivity() {
                     val title = tmdbMovie.title.orEmpty()
                     val overview = tmdbMovie.overview.orEmpty()
                     val voteAverage = tmdbMovie.vote_average ?: 0.0
+                    var release_date = tmdbMovie.release_date ?: "2000-1-1"
+                    release_date = DateFormatter.convertDate(release_date)
 
 
 
@@ -66,6 +69,7 @@ class SearchProgramsActivity : AppCompatActivity() {
                         .length(0)
                         .overview(overview)
                         .rating(voteAverage.toFloat())
+                        .releaseDate(release_date)
                         .build()
                 }
 

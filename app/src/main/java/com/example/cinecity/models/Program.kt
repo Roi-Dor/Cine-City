@@ -5,11 +5,12 @@ data class Program(
     val name: String = "",
     val length: Int = 0,
     val overview: String = "",
+    val release_date: String = "1-1-2000",
     val rating: Float = 0.0F,
     var isCollapsed: Boolean = true
 ) {
     // No-argument constructor required for Firebase
-    constructor() : this("", "", 0, "", 0.0F, true)
+    constructor() : this("", "", 0, "", "1-1-2000",0.0F, true)
 
     fun toggleCollapse() = apply { this.isCollapsed = !this.isCollapsed }
 
@@ -18,6 +19,7 @@ data class Program(
         private var name: String = "",
         private var length: Int = 0,
         private var overview: String = "",
+        private var release_date: String = "1-1-2000",
         private var rating: Float = 0.0F,
     ) {
         fun poster(poster: String) = apply { this.poster = poster }
@@ -25,7 +27,9 @@ data class Program(
         fun length(length: Int) = apply { this.length = length }
         fun overview(overview: String) = apply { this.overview = overview }
         fun rating(rating: Float) = apply { this.rating = rating }
+        fun releaseDate(release_date: String) = apply {this.release_date = release_date}
 
-        fun build() = Program(poster, name, length, overview, rating)
+
+        fun build() = Program(poster, name, length, overview, release_date , rating)
     }
 }
