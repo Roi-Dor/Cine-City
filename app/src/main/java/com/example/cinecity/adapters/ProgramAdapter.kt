@@ -33,7 +33,7 @@ class ProgramAdapter(private var programs: List<Program>) :
                 //api doesn't pass a duration field
                 //binding.programLBLDuration.text = TimeFormatter.formatTime(length)
                 binding.programLBLOverview.text = overview
-                binding.programRBRating.rating = rating / 2
+                binding.programRBRating.rating = rating
                 ImageLoader.getInstance().loadImage(poster, binding.programIMGPoster)
                 binding.programLBLReleaseDate.text = release_date
 

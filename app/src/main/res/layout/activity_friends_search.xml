@@ -24,7 +24,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
-        android:padding="8dp">
+        android:padding="8dp"
+        >
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="0dp"
@@ -39,7 +40,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@mipmap/search_foreground"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:background="@color/white"/>
     </LinearLayout>
 
     <!-- RecyclerView for displaying friends -->

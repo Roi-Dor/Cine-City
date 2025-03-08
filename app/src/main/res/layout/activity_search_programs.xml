@@ -41,7 +41,8 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@mipmap/search_foreground"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:background="@color/white"/>
 
 
     </LinearLayout>

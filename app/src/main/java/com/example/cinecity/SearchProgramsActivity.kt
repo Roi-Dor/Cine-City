@@ -78,7 +78,7 @@ class SearchProgramsActivity : AppCompatActivity() {
                             .name(title)
                             .length(0)
                             .overview(overview)
-                            .rating(voteAverage.toFloat())
+                            .rating(((tmdbMovie.vote_average ?: 0.0) / 2).toFloat()) // divide by 2 here only!
                             .releaseDate(releaseDate)
                             .build()
                     }
