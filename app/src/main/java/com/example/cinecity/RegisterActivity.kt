@@ -1,10 +1,8 @@
 package com.example.cinecity
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -52,6 +50,15 @@ class RegisterActivity : AppCompatActivity() {
         }
         startActivityForResult(Intent.createChooser(intent, "Choose Profile Picture"), REQUEST_CODE_PICK_IMAGE)
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_PICK_IMAGE && resultCode == RESULT_OK && data?.data != null) {
+            fileUri = data.data
+            Log.d("RegisterActivity", "Image selected: $fileUri")
+
+        }
+    }
+
 
     companion object {
         private const val REQUEST_CODE_PICK_IMAGE = 0
@@ -93,6 +100,7 @@ class RegisterActivity : AppCompatActivity() {
                     firestoreManager.saveUser(userId, newUser, object : FirebaseManager.FirebaseCallback {
                         override fun onSuccess() {
                             // If an image was selected, upload it; otherwise, continue directly
+                            Log.d("FirebaseStorage", fileUri.toString())
                             if (fileUri != null) {
                                 firestoreManager.uploadProfilePicture(userId, fileUri!!, object : FirebaseManager.FirebaseCallback {
                                     override fun onSuccess() {

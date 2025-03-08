@@ -3,6 +3,7 @@ package com.example.cinecity.adapters
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,7 @@ class ProgramAdapter(private var programs: List<Program>) :
                 binding.programLBLOverview.text = overview
                 binding.programRBRating.rating = rating
                 ImageLoader.getInstance().loadImage(poster, binding.programIMGPoster)
+                Log.d("posterURL", poster)
                 binding.programLBLReleaseDate.text = release_date
 
 

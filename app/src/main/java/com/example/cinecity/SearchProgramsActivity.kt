@@ -2,6 +2,7 @@ package com.example.cinecity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import com.example.cinecity.utilities.DateFormatter
+import kotlin.math.log
 
 class SearchProgramsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchProgramsBinding
@@ -67,7 +69,7 @@ class SearchProgramsActivity : AppCompatActivity() {
                             title = tmdbMovie.title.orEmpty()
                             releaseDateRaw = tmdbMovie.release_date ?: "2000-1-1"
                         } else {
-                            title = tmdbMovie.original_name.orEmpty()
+                            title = tmdbMovie.name.orEmpty()
                             releaseDateRaw = tmdbMovie.first_air_date ?: "2000-1-1"
                         }
 
