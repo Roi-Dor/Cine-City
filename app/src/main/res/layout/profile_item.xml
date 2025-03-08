@@ -8,7 +8,6 @@
     android:layout_gravity="center"
     >
 
-    <!-- Circular Profile Picture -->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/profileImage"
         android:layout_width="164dp"

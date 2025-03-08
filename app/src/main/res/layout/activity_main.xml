@@ -28,7 +28,7 @@
         app:layout_constraintBottom_toTopOf="@id/fragment_bottom_bar_container"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/program_item" />
+        tools:listitem="@layout/feed_item" />
 
     <!-- Bottom bar fragment container pinned to the bottom -->
     <FrameLayout

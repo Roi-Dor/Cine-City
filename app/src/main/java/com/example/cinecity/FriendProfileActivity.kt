@@ -7,9 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinecity.adapters.ProgramAdapter
 import com.example.cinecity.databinding.ActivityFriendProfileBinding
-import com.example.cinecity.models.GalData
 import com.example.cinecity.models.Program
-import com.example.cinecity.models.UserData
 import com.example.cinecity.utilities.AuthManager
 import com.example.cinecity.utilities.FirebaseManager
 
@@ -22,39 +20,47 @@ class FriendProfileActivity : AppCompatActivity() {
         binding = ActivityFriendProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Retrieve friend username from the Intent extras.
+        // Retrieve friend's username and ID from Intent extras.
         val friendUsername = intent.getStringExtra("FRIEND_USERNAME") ?: "Friend's Library"
+        val friendId = intent.getStringExtra("FRIEND_ID")
         binding.friendUsernameTitle.text = friendUsername
 
-
-        val programAdapter = ProgramAdapter((GalData.generateProgramList()))//just for testing delete this once there is a database
+        // Set up ProgramAdapter with an initially empty list.
+        val programAdapter = ProgramAdapter(emptyList())
         binding.friendRVList.adapter = programAdapter
         binding.friendRVList.layoutManager = LinearLayoutManager(this)
 
-        // Handle click on appLogo to return to MainActivity (or any other navigation).
+        // Retrieve and display the friend's programs from Firebase.
+        if (friendId != null) {
+            FirebaseManager.getInstance().getUserPrograms(friendId, object : FirebaseManager.ProgramsCallback {
+                override fun onSuccess(programs: List<Program>) {
+                    // Update adapter with fetched programs.
+                    programAdapter.updatePrograms(programs)
+                }
+                override fun onFailure(errorMessage: String) {
+                    Toast.makeText(this@FriendProfileActivity, "Error loading programs: $errorMessage", Toast.LENGTH_SHORT).show()
+                }
+            })
+        } else {
+            Toast.makeText(this, "Friend ID not available", Toast.LENGTH_SHORT).show()
+        }
+
+        // Handle click on appLogo to return to MainActivity.
         binding.appLogo.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
-        // Retrieve the friend's ID from Intent extras
-        val friendId = intent.getStringExtra("FRIEND_ID")
-// Also, retrieve the friend username as you already do
-        binding.friendUsernameTitle.text = friendUsername
-
-// Set click listener for the add icon
+        // Set click listener for the add icon to add the friend.
         binding.addIcon.setOnClickListener {
             if (friendId != null) {
-                // Get the current user's ID (this depends on how you manage authentication)
-                // For example, if you have an AuthManager:
+                // Get the current user's ID from your AuthManager.
                 val currentUserId = AuthManager.getInstance(this).getCurrentUserUid()
                 if (currentUserId != null) {
                     FirebaseManager.getInstance().addFriend(currentUserId, friendId, object : FirebaseManager.FirebaseCallback {
                         override fun onSuccess() {
                             Toast.makeText(this@FriendProfileActivity, "Friend added!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@FriendProfileActivity, MainActivity::class.java)
-                            startActivity(intent)
+                            startActivity(Intent(this@FriendProfileActivity, MainActivity::class.java))
                             finish()
                         }
                         override fun onFailure(errorMessage: String) {
@@ -68,7 +74,5 @@ class FriendProfileActivity : AppCompatActivity() {
                 Toast.makeText(this@FriendProfileActivity, "Friend ID not available", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
-
 }
