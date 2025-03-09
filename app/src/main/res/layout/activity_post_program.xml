@@ -14,7 +14,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/cine_city_icon"
+        android:src="@mipmap/app_icon_foreground"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="16dp" />
