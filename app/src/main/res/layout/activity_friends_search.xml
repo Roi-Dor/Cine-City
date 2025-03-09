@@ -16,7 +16,7 @@
         android:layout_gravity="end"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/cine_city_icon" />
+        android:src="@mipmap/app_icon_foreground" />
 
     <!-- Search Bar -->
     <LinearLayout
