@@ -15,7 +15,7 @@
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginBottom="24dp"
-        android:src="@drawable/cine_city_icon"
+        android:src="@mipmap/app_icon_foreground"
         />
 
     <!-- TextInputLayout for First Name -->
