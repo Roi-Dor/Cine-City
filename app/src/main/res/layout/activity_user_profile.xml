@@ -25,7 +25,7 @@
             android:id="@+id/appLogo"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/cine_city_icon"
+            android:src="@mipmap/app_icon_foreground"
             android:layout_alignParentEnd="true"
             android:clickable="true"
             android:focusable="true" />
