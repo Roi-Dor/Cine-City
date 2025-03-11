@@ -42,4 +42,8 @@ npm start
 Feel free to fork the repository and contribute to the development of Cine City. Contributions are welcome!
 
 
+## Video preview of the app 🤝🔧🌱
+
+https://github.com/user-attachments/assets/3d5853c7-87c7-4861-bde0-7ea04580fda0
+
 
