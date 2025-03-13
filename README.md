@@ -37,10 +37,6 @@ npm install
 npm start
 ```
 
-## Contribution 🤝🔧🌱
-
-Feel free to fork the repository and contribute to the development of Cine City. Contributions are welcome!
-
 
 ## Video preview of the app 🤝🔧🌱
 
